@@ -18,3 +18,8 @@ python3 dashboard.py
 After you see the LocalPy screen saying `Dashboard` use the controls on the screen
 
 The screen allows you to create and delete localhosts.
+
+
+### Files
+
+The file `ports` is very important. Read the README.md there and follow the instructions after creating a localhost.

@@ -41,9 +41,9 @@ def server_start(port):
     exec("""
 class StoppableHTTPServer(http.server.HTTPServer):
     def run(self):
+        os.chdir('ports')
+        os.chdir('""" + str(port) + """')
         try:
-            os.chdir('ports')
-            os.chdir('""" + str(port) + """')
             self.serve_forever()
         except KeyboardInterrupt:
             pass
@@ -85,6 +85,7 @@ with open('data/servers.json') as f:
     f = json.loads(f.read())['data']
     for x in f:
         sessions.insert(END, x)
+        server_start(x.split(':')[1])
 
 end_index = sessions.index("end")
 if end_index == 0:

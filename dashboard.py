@@ -17,7 +17,7 @@ import json
 import easygui
 from pathlib import Path
 import shutil
-
+import sys
 
 
 mycwd = os.getcwd()
@@ -40,12 +40,18 @@ root.mainloop()
 
 # server code
 def server_start(port):
+    os.chdir(mycwd)
+    os.chdir('ports/' + str(port))
     exec("""
 class StoppableHTTPServer(http.server.HTTPServer):
+    os.chdir(mycwd)
+    os.chdir('ports/' + '""" + str(port) + """')
     def run(self):
-        os.chdir('ports')
-        os.chdir('""" + str(port) + """')
+        os.chdir(mycwd)
+        os.chdir('ports/' + '""" + str(port) + """')
         try:
+            os.chdir(mycwd)
+            os.chdir('ports/' + '""" + str(port) + """')
             self.serve_forever()
         except KeyboardInterrupt:
             pass
@@ -95,9 +101,9 @@ if end_index == 0:
 
 
 def add():
-    os.chdir(mycwd)
     port_num = easygui.enterbox("Enter the port number of your server")
     Path("ports/" + port_num).mkdir(parents=True, exist_ok=True)
+    os.chdir(mycwd)
     server_start(port_num)
     sessions.insert(END, 'localhost:' + port_num)
     os.chdir(mycwd)

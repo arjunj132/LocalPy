@@ -16,6 +16,8 @@ import threading
 import json
 import easygui
 from pathlib import Path
+import shutil
+
 
 
 mycwd = os.getcwd()
@@ -111,7 +113,7 @@ def add():
 def delete():
     os.chdir(mycwd)
     os.chdir('ports')
-    os.rmdir(sessions.get(ACTIVE).split(':')[1])
+    shutil.rmtree(sessions.get(ACTIVE).split(':')[1])
     server_quit(sessions.get(ACTIVE).split(':')[1])
     os.chdir(mycwd)
     with open('data/servers.json', 'r+') as f:
